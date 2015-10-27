@@ -1,0 +1,19 @@
+{
+  "name": "DoIt",
+  "version": "0.0.0",
+  "authors": [
+    "Frank Somich <fsomich@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.1",
+    "polymer-date-picker": "~0.0.11"
+  }
+}

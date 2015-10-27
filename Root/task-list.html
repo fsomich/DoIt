@@ -1,0 +1,90 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../task-service/task-service.html">
+<link rel="import" href="task-card.html">
+
+<polymer-element name="task-list" attributes="show">
+  <template>
+    <style>
+      :host {
+        display: block;
+        width: 100%;
+        margin-bottom: 3em;
+      }
+      task-card{
+        margin-bottom: 1px;
+      }
+      .required {
+        background-color: #4527A0;
+      }
+      .optional {
+        background-color: #9575CD; 
+      }
+      .event {
+        background-color: #D1C4E9; 
+      }
+      task-card[done="true"] {
+        background-color: #E0E0E0;
+      }
+      task-card[done="true"] span {
+        text-decoration: line-through;
+      }
+      task-card[done="true"] div:first-child {
+        background-color: #BDBDBD;
+      }
+    </style>
+    
+    <task-service id="service" tasks="{{tasks}}">
+    </task-service>
+
+    <div layout vertical center>
+
+      <template repeat="{{task in tasks}}">
+        <task-card
+          done="{{task.done}}"
+          on-done-tap="{{handleComplete}}"
+          on-edit-tap="{{handleEdit}}"
+          hidden?="{{show == 'today' && task.today != 'today'}}">
+          <div class="{{task.priority}}" id="taskName"></div>
+          <span flex>{{task.item}}</span>
+        </task-card>
+      </template>
+
+    </div>  
+    
+  </template>
+
+  <script>
+  Polymer({
+    handleComplete: function(event, detail, sender) {
+      var task = sender.templateInstance.model.task;
+      task.done = !task.done;
+      document.getElementById("progress").value = this.$.service.calcComplete();
+      this.$.service.setComplete(task.uid, task.done);
+    },
+    handleEdit: function(event, detail, sender) {
+      var task = sender.templateInstance.model.task;
+
+      document.getElementById("taskItem").value = task.item;
+      document.getElementById("taskDate").value = task.date;
+      document.getElementById("prgDialog").selected = task.priority;
+    },
+    acceptEdit: function(item, date, priority) {
+      this.$.service.handleAccept(item, date, priority);
+    },
+    hidden: function(event, detail, sender) {
+      /*var task = sender.templateInstance.model.task;
+      var today = new Date();
+      var show = document.querySelector("task-list").show;
+
+      var dd = (today.getMonth()).toString() + "/" + (today.getDate()).toString() + "/" + (today.getFullYear()).toString();
+      console.log(dd);
+      if (show == 'today' && task.date != dd) {
+        return true;
+      } else {
+        return false;
+      }*/
+    }
+  });
+  </script>
+
+</polymer-element>

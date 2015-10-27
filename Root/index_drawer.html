@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>DoIt</title>
+
+  <meta name="viewport" 
+  content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+
+  <link rel="import" href="../bower_components/font-roboto/roboto.html">
+  <link rel="import" href="../bower_components/paper-elements/paper-elements.html">
+  <link rel="import" href="../bower_components/core-elements/core-elements.html">
+
+  <style>
+  	html,body {
+	    height: 100%;
+	    margin: 0;
+	    background-color: #E5E5E5;
+	    font-family: 'Roboto', sans-serif;
+	}
+  	core-header-panel{
+  		height: 100%;
+    	overflow: auto;
+    	-webkit-overflow-scrolling: touch;
+  	}
+  	#mainheader {
+  		background: #7E57C2;
+  		color: white;
+  	}
+  	#nav_menu_head {
+  		background: #9575CD;
+  		color: white;
+  	}
+  	#nav_menu_panel {
+  		background: white
+  	}
+  	#add_task{
+  		background-color: #69F0AE;
+  		position: absolute;
+  		bottom: 1.5em;
+  		right: 1.5em;
+  	}
+  </style>
+
+</head>
+
+
+
+<body unresolved>
+
+	<core-drawer-panel forceNarrow>
+
+		<core-header-panel main>
+
+			<core-toolbar id="mainheader">
+
+				<paper-icon-button id"nav_menu" icon="menu" core-drawer-toggle></paper-icon-button>
+
+				<span flex>Do It</span>
+
+				<paper-icon-button id="main_account" icon="account-circle"></paper-icon-button>
+
+			</core-toolbar>
+
+			<paper-fab icon="add" id="add_task"></paper-fab>
+
+		</core-header-panel>
+			
+		<core-header-panel drawer id="nav_menu_panel">
+
+			<core-toolbar id="nav_menu_head">
+	    		<span>Menu</span>
+			</core-toolbar>
+			<core-menu id="nav_menu_content">
+				<core-item label="Today"></core-item>
+				<core-item label="Outlook"></core-item>
+			</core-menu>
+
+		</core-header-panel>
+
+	</core-drawer-panel>
+
+	<div class="container" layout vertical center></div>
+
+</body>
+
+</html>

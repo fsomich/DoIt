@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <title>DoIt</title>
+
+  <meta name="viewport" 
+  content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="pageActions.js" type="text/javascript"></script>
+
+  <link rel="import" href="../bower_components/polymer/polymer.html">
+  <link rel="import" href="../bower_components/font-roboto/roboto.html">
+  <link rel="import" href="../bower_components/paper-elements/paper-elements.html">
+  <link rel="import" href="../bower_components/core-elements/core-elements.html">
+  <link rel="import" href="../bower_components/ajax-form/ajax-form.html">
+  <link rel="import" href="task-card.html">
+  <link rel="import" href="task-list.html">
+
+  <style>
+  	html,body {
+	    height: 100%;
+	    margin: 0;
+	    background-color: #E5E5E5;
+	    font-family: 'Roboto', sans-serif;
+	  }
+  	core-header-panel{
+  		height: 100%;
+    	overflow: auto;
+    	-webkit-overflow-scrolling: touch;
+  	}
+  	#mainheader {
+  		background: #7E57C2;
+  		color: white;
+  	}
+  	#add_task{
+  		background-color: #69F0AE;
+  		position: absolute;
+  		bottom: 1.5em;
+  		right: 1.5em;
+  	}
+    #main_title {
+      color: white;
+      text-align: center; 
+      font-size: 175%;
+    }
+    .header {
+      display: block;
+      position: relative;
+      height: 3em;
+      width: 65%;
+      background-color: #E5E5E5;
+      color: #616161;
+    }
+    .header span {
+      padding-left: 4em;
+    }
+    paper-progress {
+      padding-right: 4em;
+    }
+    paper-shadow {
+      width: 65%;
+    }
+    task-list {
+      margin: 0;
+    }
+  </style>
+
+  <style>
+    html /deep/ paper-action-dialog::shadow #scroller {
+      width: 30em;
+      height: 17.25em;
+    }
+    html /deep/ {
+      width: 25%;
+    }    
+    html /deep/ paper-input-decorator {
+      padding: 0;
+    }
+    html /deep/ paper-input-decorator /deep/ .unfocused-underline {
+      background-color: #7E57C2;
+    }
+    html /deep/ paper-input-decorator[focused] /deep/ .floated-label .label-text {
+      color: #7E57C2;
+    }
+    html /deep/ paper-input-decorator /deep/ .focused-underline {
+      background-color: #7E57C2;
+    }
+    html /deep/ paper-input-decorator /deep/ .cursor {
+      background-color: #7E57C2;
+    }
+    html /deep/ .taskDate{
+      width: 35%;
+      margin-top: .5em;
+      margin-bottom: .5em;
+    }
+    html /deep/ h1 {
+      font-weight: normal;
+    }
+    html /deep/ .rdEvent::shadow #ink[checked] {
+      color: #D1C4E9;
+    }
+    html /deep/ .rdEvent::shadow #onRadio {
+      background-color: #D1C4E9;
+    }
+    html /deep/ .rdOptional::shadow #ink[checked] {
+      color: #9575CD;
+    }
+    html /deep/ .rdOptional::shadow #onRadio {
+      background-color: #9575CD;
+    }
+    html /deep/ .rdRequired::shadow #ink[checked] {
+      color: #4527A0;
+    }
+    html /deep/ .rdRequired::shadow #onRadio {
+      background-color: #4527A0;
+    }
+    html /deep/ #btnCreate {
+      color: #7E57C2;
+      background-color: white;
+      border: 0;
+      margin-top: 13px;
+      font-size: large;
+      right: 5px;
+      font-weight: 0;
+    }
+    html /deep/ paper-button[dismissive] {
+      color: black;
+    }
+    html /deep/ paper-radio-group {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  </style>
+
+</head>
+
+<body unresolved>
+
+	<core-header-panel>
+
+		<core-toolbar id="mainheader">
+			<span>Do It</span>
+      <span id="main_title" flex>Today</span>
+      <paper-icon-button id="main_view" icon="list"></paper-icon-button>      
+			<paper-icon-button id="main_account" icon="account-circle"></paper-icon-button>
+		</core-toolbar>
+    <!-- Content section -->
+		<paper-fab icon="add" id="add_task" on-tap="{{createDialog}}">
+    </paper-fab>
+
+    <paper-dialog heading="Create Task" id="createDialog" transition="core-transition-center">
+      <form id="frm1">
+        <paper-input-decorator label="Task" floatingLabel flex><input is="core-input" required id="taskItem"/></paper-input-decorator>
+        <paper-input-decorator label="Date" floatingLabel class="taskDate">
+          <input type="text" id="taskDate" placeholder="" onfocus="(this.type = 'date')" onblur="(this.type = 'text')" required/>
+        </paper-input-decorator></br>
+        <paper-radio-group selected="required" id = "prgDialog">
+          <paper-radio-button name="required" label="Required" class="rdRequired"></paper-radio-button>
+          <paper-radio-button name="optional" label="Optional" class="rdOptional"></paper-radio-button>
+          <paper-radio-button name="event" label="Event" class="rdEvent"></paper-radio-button>
+        </paper-radio-group></br>
+        <input type="submit" value="Accept" id="btnCreate">
+      </form>
+    </paper-dialog>
+        
+    <div class="container" layout vertical center>
+
+      <div class="header" id="container_head" layout horizontal center>
+        <span flex>Today</span>
+        <paper-progress min="0" max="100" value="0" id="progress"></paper-progress>
+      </div>
+
+      <paper-shadow z="1">
+        <task-list show="today" id="list"></task-list>
+      </paper-shadow>      
+
+    </div>
+
+  </core-header-panel>
+
+<script>
+
+</script>
+
+</body>
+
+</html>
